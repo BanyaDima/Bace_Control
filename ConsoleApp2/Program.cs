@@ -11,6 +11,7 @@ namespace ConsoleApp2
         public int Population;
         public string Title;
         public int Area;
+        public double Density;
     }
     class Program
     {
@@ -35,36 +36,59 @@ namespace ConsoleApp2
                 cities[i].Area = int.Parse(popular[1]);
             }
             int maxPopular = cities[0].Population;
+            int countPop = 0;
 
             for (int i = 0; i < cities.Length; i++)
             {
                 if (cities[0].Population < cities[i].Population)
                 {
                     maxPopular = cities[i].Population;
+                    countPop = i;
                 }
             }
 
-            Console.WriteLine(maxPopular);
+            Console.WriteLine($"The city with the most inhabitants is: {cities[countPop].Title},live in it: {maxPopular} people");
 
             int maxLengsCity = cities[0].Title.Length;
+            int countCity = 0;
 
             for (int i = 0; i < cities.Length; i++)
             {
                 if (cities[0].Title.Length < cities[i].Title.Length)
                 {
                     maxLengsCity = cities[i].Title.Length;
+                    countCity = i;
                 }
             }
-            Console.WriteLine(maxLengsCity);
+            Console.WriteLine($"\nLongest name is: {cities[countCity].Title},he has: {maxLengsCity} letters.\n");
 
-            for (int i = 0; i < cities.Length-1; i++)
+            for (int i = 0; i < cities.Length; i++)
             {
-                if ((cities[i].Population / cities[i].Area) > (cities[i + 1].Population / cities[i + 1].Area));
+                cities[i].Density = cities[i].Population / cities[i].Area;
+            }
+
+            double temp = 0;
+
+            for (int i = 0; i < cities.Length - 1; i++)
+            {
+                for (int j = i + 1; j < cities.Length; j++)
                 {
+                    if (cities[i].Density < cities[j].Density)
+                    {
+                        temp = cities[i].Density;
+                        cities[i].Density = cities[j].Density;
+                        cities[j].Density = temp;
+
+                    }
 
                 }
             }
 
+            Console.WriteLine("The Density: " );
+            for (int i = 0; i < cities.Length; i++)
+            {
+                Console.WriteLine($"\t\t{cities[i].Title} - {cities[i].Density}");
+            }
 
 
 
